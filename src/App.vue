@@ -24,7 +24,7 @@ const sendMessage = async () => {
     })
     // Assume response.data.reply contains the AI's reply; adjust if different
     // messages.value.push({ text: response.data.reply || 'No response from AI', isUser: false }) //Back to reply
-    messages.value.push({ text: response.data[0]?.reply || 'No response from AI', isUser: false })
+    messages.value.push({ text: response.data.contents?.[0]?.parts?.[0]?.reply || 'No response from AI', isUser: false })
   } catch (error) {
     messages.value.push({ text: 'Error connecting to AI: ' + (error as Error).message, isUser: false })
   } finally {
