@@ -37,28 +37,30 @@ const sendMessage = async () => {
 <template>
   <div class="container text-center mt-5">
     <h1>Micro-Assistant Teacher</h1>
-    <p>Click the button to start chatting with the AI teacher.</p>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chatModal">Start Chat</button>
+    <p>Нажми кнопку, чтобы начать чат с AI-учителем.</p>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chatModal">Начать чат</button>
   </div>
 
-  <!-- Chat Modal -->
+  <!-- Модальное окно чата -->
   <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="chatModalLabel">Chat with AI Teacher</h5>
+          <h5 class="modal-title" id="chatModalLabel">Чат с AI-учителем</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="chat-window border rounded p-3 mb-3" style="height: 300px; overflow-y: auto;">
             <div v-for="(msg, index) in messages" :key="index" :class="['mb-2', msg.isUser ? 'text-end' : 'text-start']">
-              <span :class="['badge', msg.isUser ? 'bg-primary' : 'bg-secondary']">{{ msg.text }}</span>
+              <div :class="['message-bubble', msg.isUser ? 'user-message' : 'ai-message']">
+                {{ msg.text }}
+              </div>
             </div>
-            <div v-if="isLoading" class="text-center">Thinking...</div>
+            <div v-if="isLoading" class="text-center">Думаю...</div>
           </div>
           <div class="input-group">
-            <input v-model="userInput" type="text" class="form-control" placeholder="Type your question..." @keyup.enter="sendMessage" />
-            <button class="btn btn-primary" @click="sendMessage" :disabled="isLoading">Send</button>
+            <input v-model="userInput" type="text" class="form-control" placeholder="Задай вопрос..." @keyup.enter="sendMessage" />
+            <button class="btn btn-primary" @click="sendMessage" :disabled="isLoading">Отправить</button>
           </div>
         </div>
       </div>
@@ -67,8 +69,27 @@ const sendMessage = async () => {
 </template>
 
 <style scoped>
-/* Optional custom styles if needed, but Bootstrap handles most */
 .chat-window {
   background-color: #f8f9fa;
+}
+
+.message-bubble {
+  display: inline-block;
+  max-width: 70%; /* Ограничиваем ширину сообщения */
+  padding: 8px 12px;
+  border-radius: 10px;
+  white-space: normal; /* Разрешаем перенос текста */
+  word-wrap: break-word; /* Перенос длинных слов */
+  line-height: 1.4;
+}
+
+.user-message {
+  background-color: #007bff; /* Синий для сообщений пользователя */
+  color: white;
+}
+
+.ai-message {
+  background-color: #6c757d; /* Серый для сообщений AI */
+  color: white;
 }
 </style>
