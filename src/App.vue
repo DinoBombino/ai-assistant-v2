@@ -14,15 +14,15 @@ const isLoading = ref(false)
 const sendMessage = async () => {
   if (!userInput.value.trim()) return
 
-  // Add user message
+  // Add user message to chat
   messages.value.push({ text: userInput.value, isUser: true })
 
   isLoading.value = true
   try {
-    const response = await axios.post('https://unity.app.n8n.cloud/webhook/api/chat', {
-      message: userInput.value
+    const response = await axios.post('https://unity.app.n8n.cloud/webhook-test/api/chat', {
+      message: userInput.value  // JSON payload: { message: "user input" }
     })
-    // Assume response.data.reply is the AI's reply
+    // Assume response.data.reply contains the AI's reply; adjust if different
     messages.value.push({ text: response.data.reply || 'No response from AI', isUser: false })
   } catch (error) {
     messages.value.push({ text: 'Error connecting to AI: ' + (error as Error).message, isUser: false })
