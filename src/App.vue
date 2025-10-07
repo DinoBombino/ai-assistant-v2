@@ -19,7 +19,7 @@ const sendMessage = async () => {
 
   isLoading.value = true
   try {
-    const response = await axios.post('https://unity.app.n8n.cloud/webhook/api/chat', {
+    const response = await axios.post('https://unity.app.n8n.cloud/webhook-test/api/chat', {
       message: userInput.value
     })
     // Assume response.data.reply is the AI's reply
