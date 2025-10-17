@@ -19,7 +19,8 @@ const sendMessage = async () => {
 
   isLoading.value = true
   try {
-    const response = await axios.post('https://unity.app.n8n.cloud/webhook/api/chat', {
+    // const response = await axios.post('https://unity.app.n8n.cloud/webhook/api/chat', {
+    const response = await axios.post('https://n8n.namelomax.beget.tech/webhook/api/chat', {
       message: userInput.value  // JSON payload: { message: "user input" }
     })
     // Assume response.data.reply contains the AI's reply; adjust if different
